@@ -93,15 +93,11 @@ var upperCasedCharacters = [
 function getPasswordOptions() {
   let LengthPassword = prompt("please enter the length of the password, should be At least 8 characters but no more than 128. ");
 
-  if (LengthPassword < 8){
+  if ((LengthPassword < 8) || (LengthPassword > 128)) {
     alert("Bad Input");
     return null;
   }
 
-  if (LengthPassword > 128){
-    alert("Bad Input");
-    return null;
-  }
       let numberLowercaseCharacters = confirm("Do you want to include lower case characters ");
       let numberUppercaseCharacters = confirm("Do you want to include upper case characters ");
       let numberNumericCharacters = confirm("Do you want to include numeric characters ");
@@ -110,11 +106,21 @@ function getPasswordOptions() {
     
   if (numberLowercaseCharacters) {  }
   else if (numberUppercaseCharacters) {  }
-  else if (hasLowercaseCharacters) {  }
-  else if (hasUppercaseCharacters) {  }
+  else if (numberNumericCharacters) {  }
+  else if (numberSpecialCharacters) {  }
   else {
     alert("Password must include at least one character type.")
   }
+
+   var passwordInputs = {
+    length: LengthPassword,
+    hasLowerCase: numberLowercaseCharacters,
+    hasUpperCase: numberUppercaseCharacters,
+    hasNumericCase: numberNumericCharacters,
+    hasSpecialCase: numberSpecialCharacters,
+  }
+
+  return passwordInputs;
 
 }
 
@@ -128,7 +134,31 @@ function getPasswordOptions() {
 
 // Function to generate password with user input
 function generatePassword() {
-  
+  var options = getPasswordOptions();
+  // Create an empty array
+  var currentArr = new Array()
+  // Conditional Statement that concatinates a new array
+  if (options.hasSpecialCase) {
+    currentArr= currentArr.concat(specialCharacters)
+  }
+  if (options.hasNumericCase) {
+    currentArr= currentArr.concat(numericCharacters)
+  }
+  if (options.hasLowerCase) {
+    currentArr= currentArr.concat(lowerCasedCharacters)
+  }
+  if(options.hasUpperCase) {
+    currentArr= currentArr.concat(upperCasedCharacters)
+  }
+  console.log(currentArr)
+  // Generate random string password from new array
+  let pass = ""
+  let i = 0
+  while (i < options.length) {
+    pass = pass + getRandom(currentArr);
+    i++ ;
+  } 
+  return pass;
 }
 
 // Get references to the #generate element
