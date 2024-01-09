@@ -93,7 +93,7 @@ var upperCasedCharacters = [
 function getPasswordOptions() {
   let LengthPassword = prompt("please enter the length of the password, should be At least 8 characters but no more than 128. ");
 
-  if ((LengthPassword < 8) || (LengthPassword > 128)) {
+  if ((LengthPassword < 8) || (LengthPassword > 128)) {  // To check if the characters are between 8 and 128
     alert("Bad Input");
     return null;
   }
@@ -135,8 +135,10 @@ function getPasswordOptions() {
 // Function to generate password with user input
 function generatePassword() {
   var options = getPasswordOptions();
+
   // Create an empty array
   var currentArr = new Array()
+
   // Conditional Statement that concatinates a new array
   if (options.hasSpecialCase) {
     currentArr= currentArr.concat(specialCharacters)
@@ -151,13 +153,16 @@ function generatePassword() {
     currentArr= currentArr.concat(upperCasedCharacters)
   }
   console.log(currentArr)
+
+
   // Generate random string password from new array
-  let pass = ""
-  let i = 0
+  let pass = "" ;
+  let i = 0 ;
   while (i < options.length) {
     pass = pass + getRandom(currentArr);
     i++ ;
   } 
+
   return pass;
 }
 
